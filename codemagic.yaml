@@ -16,6 +16,7 @@ workflows:
       - flutter build ios --release --no-codesign
 
       # archive
+      script: |
       - xcodebuild archive \
           -workspace ios/Runner.xcworkspace \
           -scheme Runner \
