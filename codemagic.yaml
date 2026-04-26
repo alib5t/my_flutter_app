@@ -1,6 +1,6 @@
 workflows:
-  ios_ipa:
-    name: iOS IPA (Stable)
+  ios_app:
+    name: iOS App Build
 
     environment:
       flutter: stable
@@ -11,7 +11,7 @@ workflows:
     scripts:
       - flutter clean
       - flutter pub get
-      - flutter build ipa --no-codesign
+      - flutter build ios --release --no-codesign
 
     artifacts:
-      - build/ios/ipa/**/*.ipa
+      - build/ios/iphoneos/Runner.app
