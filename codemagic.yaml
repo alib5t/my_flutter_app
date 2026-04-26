@@ -1,6 +1,6 @@
 workflows:
   ios_ipa:
-    name: iOS IPA (No Sign)
+    name: iOS IPA (Simple & Working)
 
     environment:
       flutter: stable
@@ -11,6 +11,8 @@ workflows:
     scripts:
       - flutter clean
       - flutter pub get
+
+      # IPA üretimi (tek gerçek adım)
       - flutter build ipa --no-codesign
 
     artifacts:
