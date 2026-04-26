@@ -1,14 +1,17 @@
 workflows:
   ios_ipa:
-    name: iOS IPA (Fixed)
+    name: iOS IPA (FIXED)
 
     environment:
       flutter: stable
       xcode: latest
 
     scripts:
-      - name: Go to Flutter project
+      - name: Navigate to project
         script: cd my_app
+
+      - name: Check location
+        script: ls
 
       - name: Flutter clean
         script: flutter clean
