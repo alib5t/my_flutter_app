@@ -1,15 +1,33 @@
 workflows:
   ios_ipa:
-    name: iOS IPA Simple
+    name: Force iOS IPA Export
 
     environment:
       flutter: stable
       xcode: latest
 
+    working_directory: my_app
+
     scripts:
       - flutter clean
       - flutter pub get
-      - flutter build ipa --no-codesign
+
+      # 1. iOS build
+      - flutter build ios --release --no-codesign
+
+      # 2. archive (zorunlu adım)
+      - xcodebuild archive \
+          -workspace ios/Runner.xcworkspace \
+          -scheme Runner \
+          -configuration Release \
+          -archivePath build/Runner.xcarchive
+
+      # 3. EXPORT (asıl IPA burada oluşur)
+      - xcodebuild -exportArchive \
+          -archivePath build/Runner.xcarchive \
+          -exportPath build/ios/ipa \
+          -exportOptionsPlist ios/ExportOptions.plist
 
     artifacts:
+      - build/ios/ipa/*.ipa
       - build/ios/ipa/**/*.ipa
