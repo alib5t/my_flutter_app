@@ -1,8 +1,6 @@
 workflows:
-  ios_ipa_build:
-    name: iOS IPA Build (Guaranteed)
-
-    max_build_duration: 60
+  ios_ipa:
+    name: iOS IPA (No Sign)
 
     environment:
       flutter: stable
@@ -10,41 +8,10 @@ workflows:
 
     working_directory: my_app
 
-    cache:
-      cache_paths:
-        - ~/.pub-cache
-        - $HOME/.cocoapods
-
     scripts:
-      - name: Clean project
-        script: flutter clean
-
-      - name: Get packages
-        script: flutter pub get
-
-      - name: Install Pods
-        script: |
-          cd ios
-          pod install
-          cd ..
-
-      - name: Build iOS (required step)
-        script: flutter build ios --release --no-codesign
-
-      - name: Create IPA (Xcode export)
-        script: |
-          xcodebuild -workspace ios/Runner.xcworkspace \
-          -scheme Runner \
-          -configuration Release \
-          -archivePath build/Runner.xcarchive archive
-
-      - name: Export IPA
-        script: |
-          xcodebuild -exportArchive \
-          -archivePath build/Runner.xcarchive \
-          -exportPath build/ios/ipa \
-          -exportOptionsPlist ios/ExportOptions.plist
+      - flutter clean
+      - flutter pub get
+      - flutter build ipa --no-codesign
 
     artifacts:
-      - build/ios/ipa/*.ipa
       - build/ios/ipa/**/*.ipa
