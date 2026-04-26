@@ -1,6 +1,6 @@
 workflows:
   ios_ipa:
-    name: iOS IPA (FIXED)
+    name: iOS IPA (Guaranteed Fix)
 
     environment:
       flutter: stable
@@ -11,7 +11,24 @@ workflows:
     scripts:
       - flutter clean
       - flutter pub get
-      - flutter build ipa --no-codesign
+
+      # 1. iOS build zorla
+      - flutter build ios --release --no-codesign
+
+      # 2. IPA export (gerçek yöntem)
+      - cd ios
+      - mkdir -p build_output
+
+      - xcodebuild archive \
+          -workspace Runner.xcworkspace \
+          -scheme Runner \
+          -archivePath build_output/Runner.xcarchive
+
+      - xcodebuild -exportArchive \
+          -archivePath build_output/Runner.xcarchive \
+          -exportOptionsPlist ExportOptions.plist \
+          -exportPath build_output
 
     artifacts:
-      - build/ios/ipa/**/*.ipa
+      - ios/build_output/*.ipa
+      - ios/build_output/**/*.ipa
