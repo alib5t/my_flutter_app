@@ -19,16 +19,6 @@ workflows:
       - cd ios
       - mkdir -p build_output
 
-      - xcodebuild archive \
-          -workspace Runner.xcworkspace \
-          -scheme Runner \
-          -archivePath build_output/Runner.xcarchive
-
-      - xcodebuild -exportArchive \
-          -archivePath build_output/Runner.xcarchive \
-          -exportOptionsPlist ExportOptions.plist \
-          -exportPath build_output
-
     artifacts:
       - ios/build_output/*.ipa
       - ios/build_output/**/*.ipa
