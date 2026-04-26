@@ -13,5 +13,7 @@ workflows:
       - flutter pub get
       - flutter build ipa --no-codesign
 
-    artifacts:
-      - build/ios/ipa/*.ipa
+artifacts:
+  - build/ios/ipa/**/*.ipa
+  - build/ios/**/*.ipa
+  - build/**/*.ipa
