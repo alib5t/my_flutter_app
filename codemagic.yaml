@@ -1,16 +1,23 @@
 workflows:
   ios_ipa:
-    name: iOS IPA (Working)
+    name: iOS IPA (Fixed)
 
     environment:
       flutter: stable
       xcode: latest
 
     scripts:
-      - cd my_app
-      - flutter clean
-      - flutter pub get
-      - flutter build ipa --no-codesign
+      - name: Go to Flutter project
+        script: cd my_app
+
+      - name: Flutter clean
+        script: flutter clean
+
+      - name: Get packages
+        script: flutter pub get
+
+      - name: Build IPA
+        script: flutter build ipa --no-codesign
 
     artifacts:
       - my_app/build/ios/ipa/**/*.ipa
