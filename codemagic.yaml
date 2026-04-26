@@ -1,6 +1,6 @@
 workflows:
   ios_ipa:
-    name: iOS IPA (Simple & Working)
+    name: iOS IPA (Fixed)
 
     environment:
       flutter: stable
@@ -9,11 +9,11 @@ workflows:
     working_directory: my_app
 
     scripts:
+      - cd my_app
       - flutter clean
       - flutter pub get
-
-      # IPA üretimi (tek gerçek adım)
       - flutter build ipa --no-codesign
 
     artifacts:
-      - build/ios/ipa/**/*.ipa
+      - my_app/build/ios/ipa/**/*.ipa
+      - my_app/build/**/*.ipa
