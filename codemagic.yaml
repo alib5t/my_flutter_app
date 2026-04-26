@@ -6,21 +6,12 @@ workflows:
       flutter: stable
       xcode: latest
 
+    working_directory: my_app
+
     scripts:
-      - name: Navigate to project
-        script: cd my_app
-
-      - name: Check location
-        script: ls
-
-      - name: Flutter clean
-        script: flutter clean
-
-      - name: Get packages
-        script: flutter pub get
-
-      - name: Build IPA
-        script: flutter build ipa --no-codesign
+      - flutter clean
+      - flutter pub get
+      - flutter build ipa --no-codesign
 
     artifacts:
-      - my_app/build/ios/ipa/**/*.ipa
+      - build/ios/ipa/**/*.ipa
