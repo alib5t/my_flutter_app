@@ -1,32 +1,15 @@
 workflows:
   ios_ipa:
-    name: iOS IPA (Guaranteed)
+    name: iOS IPA Simple
 
     environment:
       flutter: stable
       xcode: latest
 
-    working_directory: my_app
-
     scripts:
       - flutter clean
       - flutter pub get
-
-      # iOS build
-      - flutter build ios --release --no-codesign
-
-      # archive
-      - xcodebuild archive \
-          -workspace ios/Runner.xcworkspace \
-          -scheme Runner \
-          -archivePath build/Runner.xcarchive
-
-      # export IPA
-      - xcodebuild -exportArchive \
-          -archivePath build/Runner.xcarchive \
-          -exportPath build/ios/ipa \
-          -exportOptionsPlist ios/ExportOptions.plist
+      - flutter build ipa --no-codesign
 
     artifacts:
-      - build/ios/ipa/*.ipa
       - build/ios/ipa/**/*.ipa
