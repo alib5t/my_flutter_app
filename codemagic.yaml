@@ -1,6 +1,6 @@
 workflows:
-  ios_app:
-    name: iOS App Build
+  ios_build:
+    name: iOS App (Stable Build)
 
     environment:
       flutter: stable
@@ -11,6 +11,8 @@ workflows:
     scripts:
       - flutter clean
       - flutter pub get
+
+      # SADECE APP üret
       - flutter build ios --release --no-codesign
 
     artifacts:
