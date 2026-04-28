@@ -1,11 +1,11 @@
 workflows:
   ios-app-build:
-    name: iOS .app build
+    name: iOS Build
     environment:
       flutter: stable
-      xcode: latest
 
     scripts:
+      - cd my_app
       - flutter pub get
       - flutter build ios --release --no-codesign
 
