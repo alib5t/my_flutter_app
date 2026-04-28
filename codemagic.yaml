@@ -6,8 +6,9 @@ workflows:
       flutter: stable
       xcode: latest
 
+    working_directory: my_app
+
     scripts:
-      - cd my_app
       - flutter pub get
       - flutter build ios --release --no-codesign
 
